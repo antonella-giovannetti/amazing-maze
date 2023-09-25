@@ -1,4 +1,5 @@
 import os
+from PIL import Image
 
 class Solver:
     def __init__(self, board: list):
@@ -49,24 +50,43 @@ class Solver:
         maze_str=""
         for row in range(len(self.board)):
             maze_str+="".join(self.board[row])+'\n'
-        print(maze_str)
         return maze_str
 
-    def save_file(self, generation: str):
+    def save_image(self, generation: str):
         name = input('Enter the desired filename (without extension): ')
         if generation == "astar":
             pass
         elif generation == "backtracking":
             self.solver_backtracking()
+        
         maze_text = self.print_maze()
         folder_maze = './solver/maze_solved/' + generation
         name_with_underscores = name.replace(' ', '_')
+        
         if not os.path.exists(folder_maze):
             os.makedirs(folder_maze)
-        name_file =  os.path.join(folder_maze, f'{name_with_underscores}.txt')
-        with open(name_file, 'w') as file:
+        
+        name_file_txt = os.path.join(folder_maze, f'{name_with_underscores}.txt')
+        name_file_jpg = os.path.join(folder_maze, f'{name_with_underscores}.jpg')
+        
+        with open(name_file_txt, 'w') as file:
             file.write(maze_text)
-        print(f'The solving maze was registered under the name {name_file}')
+        
+        image_resolution = (len(self.board[0]) * 10, len(self.board) * 10)
+        maze_image = Image.new('RGB', image_resolution)
+        for x in range(len(self.board[0])):
+            for y in range(len(self.board)):
+                if self.board[y][x] == '#':
+                    maze_image.paste((0, 0, 0), (x * 10, y * 10, (x + 1) * 10, (y + 1) * 10))
+                elif self.board[y][x] == 'o':
+                    maze_image.paste((46, 139, 87), (x * 10, y * 10, (x + 1) * 10, (y + 1) * 10))
+                elif self.board[y][x] == '*':
+                    maze_image.paste((255, 0, 0), (x * 10, y * 10, (x + 1) * 10, (y + 1) * 10))
+                else:
+                    maze_image.paste((206, 206, 206), (x * 10, y * 10, (x + 1) * 10, (y + 1) * 10))
+
+        maze_image.save(name_file_jpg, 'JPEG')
+        print(f'The solving maze was registered under the name {name_file_txt} and {name_file_jpg}')
 
     def choosing_solver(self):
         while True:
@@ -83,10 +103,10 @@ class Solver:
                 print('Enter a number between 1 and 2 !')
                 print(' ')
             elif number == "1":
-                self.save_file("astar")
+                self.save_image("astar")
                 break
             elif number == "2":
-                self.save_file("backtracking")
+                self.save_image("backtracking")
                 break
             elif number == "3":
                 break

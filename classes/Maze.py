@@ -92,7 +92,6 @@ class Maze:
             else:
                 maze_str += "".join(line) + '\n'
             count+=1
-        print(maze_str)
         return maze_str
     
     def save_file(self, name: str, maze_text: str, generation: str):

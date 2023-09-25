@@ -21,6 +21,7 @@ Solved:
 - Empty spaces to be used to reach the exit of the labyrinth are represented by the ' o ' character.
 - Empty spaces that have been explored but are not part of the final path are represented by the ' * ' character.
 
+
 ### For generation 
 - go to the 'generator' folder, into the 'generator.py' file and run the code
 - on the terminal choose the generation algorithm between kruskal and backtracking
@@ -32,8 +33,8 @@ Solved:
 - on the terminal choose the generation algorithm between kruskal and backtracking
 - write the name of the generation maze  associated with the chosen algorithm
 - choose between backtracking and astar resolution algorithms
-- choose a name to save the resolution in a text file
-- the text file with maze resolution will be stored in solver/maze_solved/ and backtracking or astar depending on the algorithm chosen
+- choose a name to save the resolution in a text file and jpg image
+- the text file and jpg image with maze resolution will be stored in solver/maze_solved/ and backtracking or astar depending on the algorithm chosen
 
 ## Solutions provided
 
@@ -82,6 +83,12 @@ The Backtracking maze-solving algorithm finds a path through a maze by following
 The A* algorithm for solving mazes has not yet been implemented in this version of the project. I plan to add it later for optimal solving functionality. In the meantime, you can use the Backtracking maze-solving algorithm.
 
 ## Complexity analysis
+
+#### Execution time per second
+![Image](media/test_execution.png)
+
+Here we can see the execution time of the algorithms per second, and we can analyze the difference in execution time between backtracking and kruskal, which has a difference of more than two seconds of execution, which is a lot.
+
 ### Maze Generation
 #### Backtracking Algorithm
 Time Complexity: O(n^2)
